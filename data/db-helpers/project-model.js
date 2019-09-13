@@ -42,18 +42,17 @@ function addTask(task) {
     .then(task => task);
 }
 
-function getTasks(id) {
+function getTasks() {
   //should include project name and description
   return db("projects")
     .join("tasks", "projects.id", "tasks.project_id")
-    .where({ project_id: id })
     .select(
       "tasks.id",
-      "project.name",
-      "project.description",
-      "project.completed",
-      "task.description",
-      "task.completed"
+      "projects.name as project_name",
+      "projects.description as project_description",
+      "projects.completed",
+      "tasks.description",
+      "tasks.completed"
     )
     .then(tasks => tasks);
 }

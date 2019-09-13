@@ -29,9 +29,9 @@ server.get("/api/projects/:id", (req, res) => {
   const id = req.params.id;
 
   Projects.getProjectById(id)
-    .then(proj => {
-      console.log({ ...proj });
-      let bool = { ...proj, completed: proj.completed === 1 ? true : false };
+    .then(project => {
+      console.log({ ...project });
+      let bool = { ...project, completed: project.completed === 1 ? true : false };
       res.status(200).json(bool);
     })
     .catch(err => {
@@ -75,5 +75,18 @@ server.post("/api/resources", (req, res) => {
       res.status(500).json({ error: "Failed to create new resource" });
     });
 });
+
+server.get("/api/tasks", (req, res) => {
+    console.log(req.params)
+    Projects.getTasks()
+    .then(tasks => {
+        console.log("GET tasks",tasks);
+        res.status(200).json(tasks)
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({ error: "Failed to retrieve tasks" })
+    })
+})
 
 module.exports = server;
