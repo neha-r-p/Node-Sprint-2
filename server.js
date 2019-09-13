@@ -81,12 +81,29 @@ server.get("/api/tasks", (req, res) => {
     Projects.getTasks()
     .then(tasks => {
         console.log("GET tasks",tasks);
-        res.status(200).json(tasks)
+
+        let taskArray = tasks.map(task => {
+            return {...task, completed:task.completed === 1 ? true : false }
+        })
+        res.status(200).json(taskArray)
     })
     .catch(err => {
         console.log(err);
         res.status(500).json({ error: "Failed to retrieve tasks" })
     })
 })
+
+server.post("/api/tasks", (req, res) => {
+    const newTask = req.body;
+  
+    Projects.addTask(newTask)
+      .then(task => {
+        res.status(201).json(task);
+      })
+      .catch(err => {
+        console.log("task POST", err);
+        res.status(500).json({ error: "Failed to create new task" });
+      });
+  });
 
 module.exports = server;

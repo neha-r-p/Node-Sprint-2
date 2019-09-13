@@ -39,7 +39,7 @@ function getProjectById(id) {
 function addTask(task) {
   return db("tasks")
     .insert(task)
-    .then(task => task);
+    .then(([id]) => this.getTasks(id));
 }
 
 function getTasks() {
@@ -50,8 +50,8 @@ function getTasks() {
       "tasks.id",
       "projects.name as project_name",
       "projects.description as project_description",
-      "projects.completed",
       "tasks.description",
+      "tasks.notes",
       "tasks.completed"
     )
     .then(tasks => tasks);
