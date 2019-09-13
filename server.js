@@ -14,8 +14,20 @@ server.get('/api/projects', (req, res) => {
 		res.status(200).json(projects)
 	})
 	.catch(err => {
-		res.json(err)
+		res.status(500).json({ error: "Failed to retrieve projects" })
 	})
+})
+
+server.post('/api/projects', (req, res) => {
+    const newProject = req.body
+
+    Projects.addProject(newProject)
+    .then(project => {
+        res.status(201).json(project)
+    })
+    .catch(err => {
+        res.status(500).json({ error: "Failed to create new project" })
+    })
 })
 
 module.exports = server
