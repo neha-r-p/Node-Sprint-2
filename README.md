@@ -40,11 +40,19 @@ Demonstrate your understanding of this week's concepts by answering the followin
 
 - [ ] Explain the difference between `Relational Databases` and `SQL`.
 
+SQL is a language, and relational database is a type of database that you can use SQL to query.
+
 - [ ] Why do tables need a `primary key`?
+
+To uniquely identify each entry in a database. It's usually represented by an integer id that autoincrements as rows are added
 
 - [ ] What is the name given to a table column that references the primary key on another table.
 
+Foreign Key
+
 - [ ] What do we need in order to have a _many to many_ relationship between two tables.
+
+The information needs to be used multiple times in both instances. For example, in recipes and ingredients, multiple recipes can use the same multiple ingredients...hence many to many. You would need to create a third table to link the two tables in this relationship.
 
 ## Minimum Viable Product
 
