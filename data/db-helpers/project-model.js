@@ -31,10 +31,10 @@ function getProjects() {
 }
 
 function getProjectById(id) {
-    return db('projects')
-            .where({ id })
-            .first();
-};
+  return db("projects")
+    .where({ id })
+    .first();
+}
 
 function addTask(task) {
   return db("tasks")

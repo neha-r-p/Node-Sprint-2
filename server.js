@@ -11,7 +11,7 @@ server.use(express.json());
 server.get("/api/projects", (req, res) => {
   Projects.getProjects()
     .then(projects => {
-    //   console.log("projects", projects);
+      //   console.log("projects", projects);
       let projArr = projects.map(project => {
         return {
           ...project,
@@ -31,7 +31,10 @@ server.get("/api/projects/:id", (req, res) => {
   Projects.getProjectById(id)
     .then(project => {
       console.log({ ...project });
-      let bool = { ...project, completed: project.completed === 1 ? true : false };
+      let bool = {
+        ...project,
+        completed: project.completed === 1 ? true : false
+      };
       res.status(200).json(bool);
     })
     .catch(err => {
@@ -77,33 +80,33 @@ server.post("/api/resources", (req, res) => {
 });
 
 server.get("/api/tasks", (req, res) => {
-    console.log(req.params)
-    Projects.getTasks()
+  console.log(req.params);
+  Projects.getTasks()
     .then(tasks => {
-        console.log("GET tasks",tasks);
+      console.log("GET tasks", tasks);
 
-        let taskArray = tasks.map(task => {
-            return {...task, completed:task.completed === 1 ? true : false }
-        })
-        res.status(200).json(taskArray)
+      let taskArray = tasks.map(task => {
+        return { ...task, completed: task.completed === 1 ? true : false };
+      });
+      res.status(200).json(taskArray);
     })
     .catch(err => {
-        console.log(err);
-        res.status(500).json({ error: "Failed to retrieve tasks" })
-    })
-})
+      console.log(err);
+      res.status(500).json({ error: "Failed to retrieve tasks" });
+    });
+});
 
 server.post("/api/tasks", (req, res) => {
-    const newTask = req.body;
-  
-    Projects.addTask(newTask)
-      .then(task => {
-        res.status(201).json(task);
-      })
-      .catch(err => {
-        console.log("task POST", err);
-        res.status(500).json({ error: "Failed to create new task" });
-      });
-  });
+  const newTask = req.body;
+
+  Projects.addTask(newTask)
+    .then(task => {
+      res.status(201).json(task);
+    })
+    .catch(err => {
+      console.log("task POST", err);
+      res.status(500).json({ error: "Failed to create new task" });
+    });
+});
 
 module.exports = server;
